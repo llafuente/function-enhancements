@@ -1,0 +1,85 @@
+# function-enhancements [![Build Status](https://secure.travis-ci.org/llafuente/function-enhancements.png?branch=master)](http://travis-ci.org/llafuente/function-enhancements)
+==========
+
+## Introduction
+============
+
+Some javascript function enhacements. Arguments:pass, prepend, append. Timing: delay, periodical, debounce, throttle, once
+
+``` js
+
+var test = function() {
+    console.log(arguments);
+    console.log(this);
+}
+
+// Function.args: prepend given arguments
+
+var t2 = test.args(["say", "hello"], {iamthis: true});
+
+t2();
+// { '0': 'say', '1': 'hello' }
+// { iamthis: true }
+
+t2("thidparam!");
+// { '0': 'say', '1': 'hello', '2': 'thidparam!' }
+// { iamthis: true }
+
+
+// Function.pass: create a function with given args and any call you will have the same arguments
+
+var t3 = test.pass(["dont mind your args"], {whoami: "root"});
+
+t3();
+// { '0': 'dont mind your args' }
+// { whoami: 'root' }
+t3("second - is not displayed!");
+// { '0': 'dont mind your args' }
+// { whoami: 'root' }
+
+
+// Function.delay execute the funtion in X miliseconds
+
+var del = t2.delay(500);
+setTimeout(del);
+
+// Function.periodical execute the funtion every X miliseconds
+
+var inter = t2.periodical(500);
+clearInterval(inter);
+
+// Function.throttle execute a function once every X miliseconds, dont mind how many time you call it.
+
+var t4 = test.throttle(1000);
+var inter = t4.periodical(50);
+
+
+```
+
+## Install
+==========
+
+With [npm](http://npmjs.org) do:
+
+```
+
+npm install function-enhancements
+
+```
+
+## test (travis-ci ready!)
+==========================
+
+```
+
+npm test
+// or
+cd /test
+node test.js
+
+```
+
+## license
+==========
+
+MIT.
