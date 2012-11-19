@@ -7,6 +7,20 @@
 Some javascript function enhacements. Arguments:pass, prepend, append. Timing: delay, periodical, debounce, throttle, once
 
 ``` js
+Function.prototype.pass // use the given args for every call
+Function.prototype.prepend // prepend given arguments
+Function.prototype.append // append given arguments
+Function.prototype.delay // delay the execution x ms
+Function.prototype.periodical // execute every x ms
+Function.prototype.debounce // execute once every x ms regardless the call count
+Function.prototype.throttle // limit the execution time, one time every x ms
+Function.prototype.once // execute once
+```
+
+
+Examples
+
+``` js
 
 var test = function() {
     console.log(arguments);
