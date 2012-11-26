@@ -31,7 +31,6 @@
   },
   "dependencies" : {},
   "devDependencies": {
-    "tap" : "~0.2.5",
-    "benchmark" : "~0.3.0"
+    "tap" : "0.3.2"
   }
 }
