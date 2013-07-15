@@ -15,10 +15,13 @@ Function.prototype.periodical // execute every x ms
 Function.prototype.debounce // execute once every x ms regardless the call count
 Function.prototype.throttle // limit the execution time, one time every x ms
 Function.prototype.once // execute once
+Function.prototype.every // call the function every x times
 ```
 
 
 Examples
+
+Check the test/test.js for more examples.
 
 ``` js
 

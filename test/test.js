@@ -15,8 +15,8 @@
 
     test("function.prepend", function (t) {
         var t2 = function () {
-            t.deepEqual(Array.prototype.slice.call(arguments), [ "say", "hello" ], "args error");
-            t.deepEqual(this, {key: "value"}, "args error");
+            t.deepEqual(Array.prototype.slice.call(arguments), [ "say", "hello" ], "arguments missmatch");
+            t.deepEqual(this, {key: "value"}, "this missmatch");
             t.end();
 
         }.prepend(["say", "hello"], {key: "value"});
@@ -26,8 +26,8 @@
 
     test("function.prepend 2", function (t) {
         var t2 = function () {
-            t.deepEqual(Array.prototype.slice.call(arguments), [ "say", "hello", "thidparam!" ], "args error");
-            t.deepEqual(this, {key: "value"}, "args error");
+            t.deepEqual(Array.prototype.slice.call(arguments), [ "say", "hello", "thidparam!" ], "arguments missmatch");
+            t.deepEqual(this, {key: "value"}, "this missmatch");
 
             t.end();
         }.prepend(["say", "hello"], {key: "value"});
@@ -37,8 +37,8 @@
 
     test("function.append", function (t) {
         var t2 = function () {
-            t.deepEqual(Array.prototype.slice.call(arguments), [ "say", "hello" ], "args error");
-            t.deepEqual(this, {key: "value"}, "args error");
+            t.deepEqual(Array.prototype.slice.call(arguments), [ "say", "hello" ], "arguments missmatch");
+            t.deepEqual(this, {key: "value"}, "this missmatch");
             t.end();
 
         }.append(["say", "hello"], {key: "value"});
@@ -48,8 +48,8 @@
 
     test("function.append 2", function (t) {
         var t2 = function () {
-            t.deepEqual(Array.prototype.slice.call(arguments), [ "thidparam!", "say", "hello" ], "args error");
-            t.deepEqual(this, {key: "value"}, "args error");
+            t.deepEqual(Array.prototype.slice.call(arguments), [ "thidparam!", "say", "hello" ], "arguments missmatch");
+            t.deepEqual(this, {key: "value"}, "this missmatch");
 
             t.end();
         }.append(["say", "hello"], {key: "value"});
@@ -59,8 +59,8 @@
 
     test("function.pass", function (t) {
         var t2 = function () {
-            t.deepEqual(Array.prototype.slice.call(arguments), [ "dont mind your args" ], "args error");
-            t.deepEqual(this, {key: "value"}, "args error");
+            t.deepEqual(Array.prototype.slice.call(arguments), [ "dont mind your args" ], "arguments missmatch");
+            t.deepEqual(this, {key: "value"}, "this missmatch");
         }.pass(["dont mind your args"], {key: "value"});
 
         t2();
@@ -83,5 +83,20 @@
         }, 1500);
 
     });
+
+    test("function.every", function (t) {
+
+        counter = 0;
+
+        var t4 = test_fn.every(2),
+            i;
+
+        for(i = 0; i < 10; ++i) {
+            t4();
+        }
+        t.equal(counter, 5, "function.every error [" + counter + "] ");
+        t.end();
+    });
+
 
 }());
