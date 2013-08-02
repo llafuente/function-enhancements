@@ -1,6 +1,6 @@
 {
   "name": "function-enhancements",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Some javascript function enhacements. Arguments:pass, prepend, append. Timing: delay, periodical, debounce, throttle, once",
   "main": "./index.js",
   "keywords": [
@@ -31,6 +31,8 @@
   },
   "dependencies" : {},
   "devDependencies": {
-    "tap" : "0.3.2"
+    "tap" : "0.3.2",
+    "benchmark" : "",
+    "microtime" : ""
   }
 }

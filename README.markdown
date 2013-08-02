@@ -16,6 +16,10 @@ Function.prototype.debounce // execute once every x ms regardless the call count
 Function.prototype.throttle // limit the execution time, one time every x ms
 Function.prototype.once // execute once
 Function.prototype.every // call the function every x times
+Function.prototype.after // really call the function after x calls
+Function.prototype.nth // call the function n times with given delay
+Function.prototype.funnel // Create a function that can be call x times in parallel, the fellowings is queued
+Function.prototype.single // alias of funnel(1)
 ```
 
 
