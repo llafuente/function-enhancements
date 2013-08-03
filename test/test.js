@@ -7,6 +7,7 @@
         counter = 0,
         test_fn = function () {
             ++counter;
+            //console.log("#counter", counter);
 
             return {
                 "arguments": Array.prototype.slice.call(arguments)
@@ -100,18 +101,23 @@
     });
 
 
+
     test("function.throttle & function.periodical", function (t) {
 
         counter = 0;
 
         var t4 = test_fn.throttle(1000),
-            inter = t4.periodical(50);
+            interval = t4.periodical(50);
 
         setTimeout(function () {
-            t.equal(counter, 2, "sequence_1 error [" + counter + "] ");
-            clearInterval(inter);
-            t.end();
+            t.equal(counter, 2, "throttle first error [" + counter + "] ");
+            clearInterval(interval);
         }, 1500);
+
+        setTimeout(function () {
+            t.equal(counter, 3, "throttle second error [" + counter + "] ");
+            t.end();
+        }, 3000);
 
     });
 
@@ -143,7 +149,6 @@
         t.end();
     });
 
-
     test("function.nth", function (t) {
 
         counter = 0;
@@ -171,6 +176,7 @@
         }, 1000);
     });
 
+
     test("function.nth3", function (t) {
 
         counter = 0;
@@ -183,21 +189,19 @@
 
         setTimeout(function () {
             t.equal(counter, 1, "function.nth error [" + counter + "] ");
-            t.end();
         }, 600);
 
         setTimeout(function () {
             t.equal(counter, 5, "function.nth error [" + counter + "] ");
             t.end();
-        }, 1500);
+        }, 2000);
     });
 
     test("function.single", function (t) {
-
         counter = 0;
 
         var tsingle = function (done) {
-                console.log("tsingle", arguments);
+                //console.log("tsingle", arguments);
 
                 ++counter;
                 setTimeout(function () {
@@ -224,7 +228,7 @@
         counter = 0;
 
         var tfunnel = function (done) {
-                console.log("tsingle", arguments);
+                //console.log("funnel", arguments);
 
                 ++counter;
                 setTimeout(function () {
@@ -269,8 +273,5 @@
             t.end();
         }, 2000);
     });
-
-
-
 
 }());
