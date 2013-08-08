@@ -20,6 +20,9 @@ Function.prototype.after // really call the function after x calls
 Function.prototype.nth // call the function n times with given delay
 Function.prototype.funnel // Create a function that can be call x times in parallel, the fellowings is queued
 Function.prototype.single // alias of funnel(1)
+
+// for compatibility with old browsers
+Function.prototype.bind
 ```
 
 
