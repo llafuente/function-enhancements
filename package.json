@@ -1,6 +1,6 @@
 {
   "name": "function-enhancements",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Some javascript function enhacements. Arguments:pass, prepend, append. Timing: delay, periodical, debounce, throttle, once",
   "main": "./index.js",
   "keywords": [
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/llafuente/function-enhancements.git"
+    "url": "git://github.com/llafuente/js-function-enhancements.git"
   },
   "author": {
     "name": "Luis Lafuente",
