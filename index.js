@@ -1,6 +1,6 @@
 (function () {
     "use strict";
 
-    require("./lib/function-enhancements.js");
+    require("./lib/functions.js");
 
 }());
