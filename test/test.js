@@ -1,5 +1,6 @@
 (function () {
     "use strict";
+    require("ass");
 
     require("../index.js");
     var tap = require("tap"),
@@ -273,5 +274,131 @@
             t.end();
         }, 2000);
     });
+
+    test("function.once", function (t) {
+        counter = 0;
+
+        var single = function () {
+                ++counter;
+            }.once();
+
+        single();
+        single();
+
+        t.equal(counter, 1, "function.once just called once");
+        t.end();
+    });
+
+    test("function.after(3)", function (t) {
+        counter = 0;
+
+        var after3 = function () {
+                ++counter;
+            }.after(3);
+
+        after3();
+        t.equal(counter, 0, "function.after1 - 0");
+        after3();
+        t.equal(counter, 0, "function.after2 - 0");
+        after3();
+        t.equal(counter, 1, "function.after3 - 1");
+        after3();
+        t.equal(counter, 1, "function.after4 - 1");
+        after3();
+        t.equal(counter, 1, "function.after5 - 1");
+        after3();
+        t.equal(counter, 1, "function.after6 - 1");
+
+        t.end();
+    });
+
+    test("function.cache", function (t) {
+        counter = 0;
+
+        var cache_counter = function () {
+                return ++counter;
+            }.cache(500),
+            i;
+
+        cache_counter();
+
+        t.equal(cache_counter(), 1, "function.cache - 1");
+
+        i = 5;
+        while (i--) {
+            cache_counter();
+        }
+
+        t.equal(cache_counter(), 1, "function.cache - 1");
+
+
+        cache_counter("new param");
+
+        t.equal(cache_counter("new param"), 2, "function.cache - 1");
+
+        i = 5;
+        while (i--) {
+            cache_counter("new param");
+        }
+
+        t.equal(cache_counter("new param"), 2, "function.cache - 1");
+
+        setTimeout(function() {
+
+            cache_counter();
+
+            t.equal(cache_counter(), 3, "function.cache - 1");
+
+            i = 5;
+            while (i--) {
+                cache_counter();
+            }
+
+            t.equal(cache_counter(), 3, "function.cache - 1");
+
+
+            cache_counter("new param");
+
+            t.equal(cache_counter("new param"), 4, "function.cache - 1");
+
+            i = 5;
+            while (i--) {
+                cache_counter("new param");
+            }
+
+            t.equal(cache_counter("new param"), 4, "function.cache - 1");
+
+            t.end();
+        }, 1000);
+    });
+
+
+
+    test("function.after(3)", function (t) {
+        var counter = Function.compose(function() {
+            return 0;
+        }, function(i) {
+            return 1 + i;
+        }, function(i) {
+            return 2 + i;
+        });
+
+        t.deepEqual(counter(), [0, 1, 3], "composition - 0,1,3");
+
+        counter = Function.sequencial(function() {
+            return 0;
+        }, function(i) {
+            return 1;
+        }, function(i) {
+            return 2;
+        });
+
+        t.deepEqual(counter(), [0, 1, 2], "sequencial 0,1,2");
+
+
+        t.end();
+    });
+
+
 
 }());
