@@ -1,6 +1,6 @@
 (function () {
     "use strict";
 
-    require("./lib/functions.js");
+    module.exports = require("./lib/functions.js");
 
 }());

@@ -2,8 +2,8 @@
     "use strict";
     require("ass");
 
-    require("../index.js");
-    var tap = require("tap"),
+    var Fun = require("../index.js"),
+        tap = require("tap"),
         test = tap.test,
         counter = 0,
         test_fn = function () {
@@ -16,54 +16,54 @@
         };
 
     test("function.prepend", function (t) {
-        var t2 = function () {
+        var t2 = Fun.prepend(function () {
             t.deepEqual(Array.prototype.slice.call(arguments), [ "say", "hello" ], "arguments missmatch");
             t.deepEqual(this, {key: "value"}, "this missmatch");
             t.end();
 
-        }.prepend(["say", "hello"], {key: "value"});
+        }, ["say", "hello"], {key: "value"});
 
         t2();
     });
 
     test("function.prepend 2", function (t) {
-        var t2 = function () {
+        var t2 = Fun.prepend(function () {
             t.deepEqual(Array.prototype.slice.call(arguments), [ "say", "hello", "thidparam!" ], "arguments missmatch");
             t.deepEqual(this, {key: "value"}, "this missmatch");
 
             t.end();
-        }.prepend(["say", "hello"], {key: "value"});
+        }, ["say", "hello"], {key: "value"});
 
         t2("thidparam!");
     });
 
     test("function.append", function (t) {
-        var t2 = function () {
+        var t2 = Fun.append(function () {
             t.deepEqual(Array.prototype.slice.call(arguments), [ "say", "hello" ], "arguments missmatch");
             t.deepEqual(this, {key: "value"}, "this missmatch");
             t.end();
 
-        }.append(["say", "hello"], {key: "value"});
+        },["say", "hello"], {key: "value"});
 
         t2();
     });
 
     test("function.append 2", function (t) {
-        var t2 = function () {
+        var t2 = Fun.append(function () {
             t.deepEqual(Array.prototype.slice.call(arguments), ["thidparam!", "say", "hello"], "arguments missmatch");
             t.deepEqual(this, {key: "value"}, "this missmatch");
 
             t.end();
-        }.append(["say", "hello"], {key: "value"});
+        }, ["say", "hello"], {key: "value"});
 
         t2("thidparam!");
     });
 
     test("function.pass", function (t) {
-        var t2 = function () {
+        var t2 = Fun.pass(function () {
             t.deepEqual(Array.prototype.slice.call(arguments), ["dont mind your args"], "arguments missmatch");
             t.deepEqual(this, {key: "value"}, "this missmatch");
-        }.pass(["dont mind your args"], {key: "value"});
+        }, ["dont mind your args"], {key: "value"});
 
         t2();
         t2("second - is not displayed!");
@@ -71,9 +71,9 @@
     });
 
     test("function.pass2", function (t) {
-        var t2 = function () {
+        var t2 = Fun.pass(function () {
             t.deepEqual(Array.prototype.slice.call(arguments), ["dont mind your args", "xxx"], "arguments missmatch");
-        }.pass(["dont mind your args", "xxx"]);
+        }, ["dont mind your args", "xxx"]);
 
         t2();
         t2("second - is not displayed!");
@@ -82,12 +82,12 @@
 
     test("function.debounce", function (t) {
         var count = 0,
-            t2 = function () {
+            t2 = Fun.debounce(function () {
                 t.deepEqual(Array.prototype.slice.call(arguments), [ "dont mind your args" ], "arguments missmatch");
                 t.deepEqual(this, {key: "value"}, "this missmatch");
                 t.deepEqual(++count, 1, "count only one");
 
-            }.debounce(250, ["dont mind your args"], {key: "value"});
+            }, 250, ["dont mind your args"], {key: "value"});
 
         setTimeout(function () {
             t2();
@@ -107,8 +107,8 @@
 
         counter = 0;
 
-        var t4 = test_fn.throttle(1000),
-            interval = t4.periodical(50);
+        var t4 = Fun.throttle(test_fn, 1000),
+            interval = Fun.periodical(t4, 50);
 
         setTimeout(function () {
             t.equal(counter, 2, "throttle first error [" + counter + "] ");
@@ -123,10 +123,9 @@
     });
 
     test("function.every", function (t) {
-
         counter = 0;
 
-        var t4 = test_fn.every(2),
+        var t4 = Fun.every(test_fn, 2),
             i;
 
         for (i = 0; i < 10; ++i) {
@@ -140,7 +139,7 @@
 
         counter = 0;
 
-        var t4 = test_fn.every(2, 3),
+        var t4 = Fun.every(test_fn, 2, 3),
             i;
 
         for (i = 0; i < 10; ++i) {
@@ -154,7 +153,7 @@
 
         counter = 0;
 
-        var t4 = test_fn.nth(5),
+        var t4 = Fun.nth(test_fn, 5),
             i;
 
         t4();
@@ -167,7 +166,7 @@
 
         counter = 0;
 
-        var t4 = test_fn.nth(5, 100),
+        var t4 = Fun.nth(test_fn, 5, 100),
             i;
 
         t4();
@@ -182,7 +181,7 @@
 
         counter = 0;
 
-        var t4 = test_fn.nth(5, 200, 500),
+        var t4 = Fun.nth(test_fn, 5, 200, 500),
             i;
 
         t4();
@@ -198,37 +197,11 @@
         }, 2000);
     });
 
-    test("function.single", function (t) {
-        counter = 0;
-
-        var tsingle = function (done) {
-                //console.log("tsingle", arguments);
-
-                ++counter;
-                setTimeout(function () {
-                    done();
-                }, 500);
-            }.single();
-
-        tsingle();
-        tsingle();
-        t.equal(counter, 1, "function.single error [" + counter + "] ");
-
-        setTimeout(function () {
-            t.equal(counter, 1, "function.single error [" + counter + "] ");
-        }, 250);
-
-        setTimeout(function () {
-            t.equal(counter, 2, "function.single error [" + counter + "] ");
-            t.end();
-        }, 750);
-    });
-
     test("function.funnel", function (t) {
 
         counter = 0;
 
-        var tfunnel = function (done) {
+        var tfunnel = Fun.funnel(function (done) {
                 //console.log("funnel", arguments);
 
                 ++counter;
@@ -236,7 +209,7 @@
                     --counter;
                     done();
                 }, 600);
-            }.funnel(3);
+            }, 3);
 
         tfunnel();
         t.equal(counter, 1, "function.funnel error [" + counter + "] ");
@@ -275,12 +248,38 @@
         }, 2000);
     });
 
+    test("function.single", function (t) {
+        counter = 0;
+
+        var tsingle = Fun.single(function (done) {
+                //console.log("tsingle", arguments);
+
+                ++counter;
+                setTimeout(function () {
+                    done();
+                }, 500);
+            });
+
+        tsingle();
+        tsingle();
+        t.equal(counter, 1, "function.single error [" + counter + "] ");
+
+        setTimeout(function () {
+            t.equal(counter, 1, "function.single error [" + counter + "] ");
+        }, 250);
+
+        setTimeout(function () {
+            t.equal(counter, 2, "function.single error [" + counter + "] ");
+            t.end();
+        }, 750);
+    });
+
     test("function.once", function (t) {
         counter = 0;
 
-        var single = function () {
+        var single = Fun.once(function () {
                 ++counter;
-            }.once();
+            });
 
         single();
         single();
@@ -292,9 +291,9 @@
     test("function.after(3)", function (t) {
         counter = 0;
 
-        var after3 = function () {
+        var after3 = Fun.after(function () {
                 ++counter;
-            }.after(3);
+            }, 3);
 
         after3();
         t.equal(counter, 0, "function.after1 - 0");
@@ -315,9 +314,9 @@
     test("function.cache", function (t) {
         counter = 0;
 
-        var cache_counter = function () {
+        var cache_counter = Fun.cache(function () {
                 return ++counter;
-            }.cache(500),
+            }, 500),
             i;
 
         cache_counter();
@@ -375,7 +374,7 @@
 
 
     test("function.after(3)", function (t) {
-        var counter = Function.compose(function() {
+        var counter = Fun.compose(function() {
             return 0;
         }, function(i) {
             return 1 + i;
@@ -385,7 +384,7 @@
 
         t.deepEqual(counter(), [0, 1, 3], "composition - 0,1,3");
 
-        counter = Function.sequencial(function() {
+        counter = Fun.sequencial(function() {
             return 0;
         }, function(i) {
             return 1;
