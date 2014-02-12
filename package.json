@@ -1,6 +1,6 @@
 {
   "name": "function-enhancements",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Some javascript function enhacements. Arguments:pass, prepend, append. Timing: delay, periodical, debounce, throttle, once",
   "main": "./index.js",
   "keywords": [

@@ -398,6 +398,29 @@
         t.end();
     });
 
+    test("function.times(3)", function (t) {
+        var count = 0,
+            counter = Fun.times(function(next) {
+                ++count;
+                next();
+            }, function () {
+                t.deepEqual(count, 3, "count is 3");
+                t.end();
+            }, 3);
+        //counter();
+    });
+
+    test("function.times(3, 500)", function (t) {
+        var count = 0,
+            counter = Fun.times(function() {
+                ++count;
+            }, function () {
+                t.deepEqual(count, 3, "count is 3");
+                t.end();
+            }, 3, 250);
+        //counter();
+    });
+
 
 
 }());

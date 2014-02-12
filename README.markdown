@@ -1,4 +1,4 @@
-# function-enhancements [![Build Status](https://secure.travis-ci.org/llafuente/function-enhancements.png?branch=master)](http://travis-ci.org/llafuente/function-enhancements)
+# function-enhancements [![Build Status](https://secure.travis-ci.org/llafuente/js-function-enhancements.png?branch=master)](http://travis-ci.org/llafuente/js-function-enhancements)
 
 ## Introduction
 
@@ -7,60 +7,65 @@ Some javascript function enhacements. Arguments:pass, prepend, append. Timing: d
 ``` js
 var Fun = require("function-enhancements");
 // Returns a closure with arguments and bind
-Fun.pass(args[, bind])
+Fun.pass(fun, args[, bind])
 
 // Returns a closure with the given arguments before the ones you send at the call
-Fun.prepend(args[, bind])
+Fun.prepend(fun, args[, bind])
 
 // Returns a closure with the given arguments after the ones you send at the call
-Fun.append(args[, bind])
+Fun.append(fun, args[, bind])
 
 // Delays the execution of a function by a specified duration.
-Fun.delay(delay_ms[, bind[, args]])
+Fun.delay(fun, delay_ms[, bind[, args]])
 
 // Executes a function in the specified intervals of time.
 // Periodic execution can be stopped using the clearInterval function.
-Fun.periodical(periodical_ms[, bind[, args]])
+Fun.periodical(fun, periodical_ms[, bind[, args]])
 
 // Returns a function, that, as long as it continues to be invoked, will not
 // be triggered. The function will be called after it stops being called for
 // N milliseconds.
-Fun.debounce(wait_ms[, args[, bind]])
+Fun.debounce(fun, wait_ms[, args[, bind]])
 
 // Creates and returns a new, throttled version of the passed function,
 // that, when invoked repeatedly, will only actually call the original
 // function at most once per every wait milliseconds. Useful for
 // rate-limiting events that occur faster than you can keep up with.
-Fun.throttle(wait_ms[, args[, bind]])
+Fun.throttle(fun, wait_ms[, args[, bind]])
 
 // Returns a function that will be executed at most one time, no matter how
 // often you call it. Useful for lazy initialization.
-Fun.once([bind[, args]])
+Fun.once(fun, [bind[, args]])
 
 // Returns a function that will be executed every <ntimes> times at most of <max_executions>
-Fun.every(ntimes, max_executions[, bind[, args]])
+Fun.every(fun, ntimes, max_executions[, bind[, args]])
 
 // Returns a function that will be executed after being called n times
-Fun.after(ntimes[, bind[, args]])
+Fun.after(fun, ntimes[, bind[, args]])
 
 // Returns a function that will be executed ntimes with a given delay between them
 // If delay is false is cero will be executed right now
 // If first_delay is false is cero will be executed right now
-Fun.nth(ntimes[, delay[, first_delay[, last_func[, bind[, args]]]]])
+Fun.nth(fun, ntimes[, delay[, first_delay[, last_func[, bind[, args]]]]])
 
 // Create a function, when called invoke this.
 // If you called again and it's in execution, the execution is queued. So only (max) execution at time
 // A new argument is sent to your function, a callback no notify the execution ended
-Fun.funnel(max[, bind[, args[, where]]])
+Fun.funnel(fun, max[, bind[, args[, where]]])
 
 // Create a function that can only be call once in parallel, the followings will be queued
 // A new argument is sent to your function, a callback no notify the execution ended
-Fun.single([, bind[, args[, where]]])
+Fun.single(fun, [, bind[, args[, where]]])
 
 // Creates a function that memoizes the result of func for a given time.
 // If hash_function is provided it will be used to determine the cache
 // key for storing the result based on the arguments provided to the memoized function.
-Fun.cache(cache_time_ms[, bind[, hash_function]])
+Fun.cache(fun, cache_time_ms[, bind[, hash_function]])
+
+// execute a function many times, when finished call the callback
+// if delay is provided, the function will be executed given that delay
+// otherwise a callback will be provided as first argument
+Fun.times(fun, callback, times[, delay])
 
 // for compatibility with old browsers @lib/functions-compat.js
 Fun.bind
