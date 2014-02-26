@@ -1,5 +1,7 @@
 # function-enhancements [![Build Status](https://secure.travis-ci.org/llafuente/js-function-enhancements.png?branch=master)](http://travis-ci.org/llafuente/js-function-enhancements)
 
+![NPM](https://nodei.co/npm/function-enhancements.png?compact=true)
+
 ## Introduction
 
 Some javascript function enhacements. Arguments:pass, prepend, append. Timing: delay, periodical, debounce, throttle, once
